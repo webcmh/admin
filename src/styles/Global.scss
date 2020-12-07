@@ -1,0 +1,10 @@
+// scss全局变量
+$blue: #324157;
+$red:#FF6666;
+$yellow:#FFFF00;
+
+// 全局引入
+@import './Base';
+@import './Mixin';
+@import './Reset';
+@import 'Element-set';

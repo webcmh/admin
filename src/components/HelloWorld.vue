@@ -27,6 +27,7 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+    <div class="wfull hfull red">1</div>
   </div>
 </template>
 
@@ -39,8 +40,8 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<!-- 添加scoped属性，限制scss仅适用于此组件 -->
+<style scoped lang='scss'>
 h3 {
   margin: 40px 0 0;
 }
@@ -52,7 +53,13 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
+p{
+    a{
+        color: $red;
+    }
+}
 a {
   color: #42b983;
 }
+
 </style>

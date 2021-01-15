@@ -103,29 +103,7 @@ export default {
         Submit() {
             this.ISloading = true; //显示提交loading
             this.Login_Text = "正在验证用户信息";
-            this.$api
-                .Login({
-                    userAcct: this.Login.userName,
-                    userPass: this.Login.password,
-                    userCode: this.Login.userCode,
-                })
-                .then((res) => {
-                    console.log(res);
-                    // setTimeout(() => {
-                    // if (res.flag == 0) {
-                    localStorage.setItem("token", res.token); //储存token
-                    localStorage.setItem(
-                        "MenuList",
-                        JSON.stringify(this.MenuList)
-                    ); // 储存菜单 防止刷新丢失
-                    //登陆成功储存菜单列表
-                    this.$router.push(this.MenuList[0].router);
-                    //   } else {
-                    //     this.ISloading = false; //不显示提交loading
-                    //     this.Login_Text = "重新验证用户信息";
-                    //   }
-                    // }, 500);
-                });
+            localStorage.setItem("_token", "dqwdslndqwdnqwkndqwakllq");
         },
         // 获取验证码
         GetverifyUrl() {},

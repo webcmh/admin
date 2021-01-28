@@ -1,134 +1,96 @@
 <!-- 组件说明 -->
 <template>
-    <div class="Login-Box">
-        <particles />
-        <el-collapse-transition>
-            <div class="Login" v-show="ISlogin">
-                <transition name="slide-fade">
-                    <el-form ref="Login" :model="Login" v-show="ISForm">
-                        <!-- 项目名 -->
-                        <el-form-item class="t-c">
-                            <h1 class="module-title">工程建设后台管理系统</h1>
-                        </el-form-item>
-                        <!-- 用户名 -->
-                        <el-form-item>
-                            <el-input
-                                v-model="Login.userName"
-                                clearable
-                                placeholder="请输入账号"
-                            >
-                                <template slot="prepend">
-                                    <i
-                                        class="el-icon-s-custom"
-                                        style="font-size:20px"
-                                    ></i>
-                                </template>
-                            </el-input>
-                        </el-form-item>
-                        <!-- 密 码 -->
-                        <el-form-item>
-                            <el-input
-                                v-model="Login.password"
-                                type="password"
-                                show-password
-                                placeholder="请输入密码"
-                            >
-                                <template slot="prepend">
-                                    <i
-                                        class="el-icon-s-grid"
-                                        style="font-size:20px"
-                                    ></i>
-                                </template>
-                            </el-input>
-                        </el-form-item>
-                        <!-- 验证码 -->
-                        <el-form-item>
-                            <el-input
-                                v-model="Login.userCode"
-                                placeholder="请输入验证码"
-                            >
-                                <template slot="prepend">
-                                    <i
-                                        class="el-icon-s-opportunity"
-                                        style="font-size:20px"
-                                    ></i>
-                                </template>
-                                <template slot="append">
-                                    <el-image
-                                        @click.native="GetverifyUrl"
-                                        :src="verifyUrl"
-                                    ></el-image>
-                                </template>
-                            </el-input>
-                        </el-form-item>
-                        <!-- 登 录 -->
-                        <el-form-item>
-                            <!-- :disabled="ISdisabled" -->
-                            <el-button
-                                type="success"
-                                :loading="ISloading"
-                                @click="Submit"
-                                >{{ Login_Text }}</el-button
-                            >
-                        </el-form-item>
-                    </el-form>
-                </transition>
-            </div>
-        </el-collapse-transition>
-    </div>
+  <div class="Login-Box">
+    <particles />
+    <el-collapse-transition>
+      <div v-show="ISlogin" class="Login">
+        <transition name="slide-fade">
+          <el-form v-show="ISForm" ref="Login" :model="Login">
+            <!-- 项目名 -->
+            <el-form-item class="t-c"><h1 class="module-title">工程建设后台管理系统</h1> </el-form-item>
+            <!-- 用户名 -->
+            <el-form-item>
+              <el-input v-model="Login.userName" clearable placeholder="请输入账号">
+                <template slot="prepend"><i class="el-icon-s-custom" style="font-size:20px" /></template>
+              </el-input>
+            </el-form-item>
+            <!-- 密 码 -->
+            <el-form-item>
+              <el-input v-model="Login.password" type="password" show-password placeholder="请输入密码">
+                <template slot="prepend"><i class="el-icon-s-grid" style="font-size:20px" /></template>
+              </el-input>
+            </el-form-item>
+            <!-- 验证码 -->
+            <el-form-item>
+              <el-input v-model="Login.userCode" placeholder="请输入验证码">
+                <template slot="prepend"> <i class="el-icon-s-opportunity" style="font-size:20px" /></template>
+                <template slot="append"><el-image :src="verifyUrl" @click.native="GetverifyUrl" /></template>
+              </el-input>
+            </el-form-item>
+            <!-- 登 录 -->
+            <el-form-item>
+              <!-- :disabled="ISdisabled" -->
+              <el-button type="success" :loading="ISloading" @click="Submit">{{ Login_Text }}</el-button>
+            </el-form-item>
+          </el-form>
+        </transition>
+      </div>
+    </el-collapse-transition>
+  </div>
 </template>
 
 <script>
-import particles from "@/components/particles";
+import particles from '@/components/particles'
 export default {
     components: { particles },
     data() {
         return {
             Login: {
-                userName: "", //用户名
-                password: "", //密 码
-                userCode: "", //验证码
+                userName: '', // 用户名
+                password: '', // 密 码
+                userCode: '' // 验证码
             },
             verifyUrl: this.GetverifyUrl(),
-            Login_Text: "开 始 使 用", //按钮显示文字
-            ISdisabled: true, //是否禁用提交按钮
-            ISloading: false, //是否显示提交loading
-            ISlogin: false, //是否显示登录框
-            ISForm: false, //是否显示登录框内form
-            MenuList: [], //模拟菜单数据
-        };
-    },
-    methods: {
-        //提交登录
-        Submit() {
-            this.ISloading = true; //显示提交loading
-            this.Login_Text = "正在验证用户信息";
-            localStorage.setItem("_token", "dqwdslndqwdnqwkndqwakllq");
-        },
-        // 获取验证码
-        GetverifyUrl() {},
+            Login_Text: '开 始 使 用', // 按钮显示文字
+            ISdisabled: true, // 是否禁用提交按钮
+            ISloading: false, // 是否显示提交loading
+            ISlogin: false, // 是否显示登录框
+            ISForm: false, // 是否显示登录框内form
+            MenuList: [] // 模拟菜单数据
+        }
     },
     watch: {
         // 校验输入项是否为空
         Login: {
             handler(newName) {
                 if (newName.userName && newName.password && newName.userCode) {
-                    this.ISdisabled = false;
-                    return;
+                    this.ISdisabled = false
+                    return
                 }
-                this.ISdisabled = true;
+                this.ISdisabled = true
             },
-            deep: true,
-        },
+            deep: true
+        }
     },
     created() {
-        this.GetverifyUrl();
+        this.GetverifyUrl()
     },
     mounted() {
-        setTimeout(() => (this.ISlogin = true), 800);
-        setTimeout(() => (this.ISForm = true), 1000);
+        setTimeout(() => (this.ISlogin = true), 800)
+        setTimeout(() => (this.ISForm = true), 1000)
     },
-};
+    methods: {
+        // 提交登录
+        Submit() {
+            this.ISloading = true // 显示提交loading
+            this.Login_Text = '正在验证用户信息'
+            localStorage.setItem('_Token', 'dqwdslndqwdnqwkndqwakllq') // 模拟token
+            this.$store.commit('AddRouter')
+        },
+        // 获取验证码
+        GetverifyUrl() {}
+    }
+}
 </script>
 
 <style scoped lang="scss">

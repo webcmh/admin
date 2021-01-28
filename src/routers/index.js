@@ -1,50 +1,38 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router' //引入路由
+import VueRouter from 'vue-router'
+// import { Message } from 'element-ui'
 
-const routes = [
-    { path: "/", redirect: '/login' },
-    {
-        path: "/login",
-        component: () => import( /* webpackChunkName: "base" */ '@/views/login'),
-        meta: { title: "登录" }
-    },
-    {
-        path: "/UserAdmin",
-        component: () => import( /* webpackChunkName: "base" */ '@/views/UserAdmin'),
-        meta: { title: "用户管理" }
-    },
-
+const BaseRoutes = [ // 基础路由表
+    { path: '/', redirect: '/Home' }, // 主架
+    { path: '*', component: () => import(/* webpackChunkName: "base" */ '@/views/Base/404'), meta: { title: 'Not Found!' }},
+    { path: '/login', component: () => import(/* webpackChunkName: "base" */ '@/views/Login'), meta: { title: '登录' }}
 ]
 
 // ---------------------------------------------------------
-Vue.use(VueRouter) // 模块化机制 要调用 Vue.use(VueRouter)  -
+Vue.use(VueRouter)
 
 // 注册路由表
-const router = new VueRouter({ routes })
+const router = new VueRouter({ routes: [...BaseRoutes] })
 
 // 路由守卫
 // -----------------------------
 router.beforeEach((to, from, next) => {
-    const _token = localStorage.getItem('_token');
-    // console.log(to, from, next, _token);
-    // console.log(to);
-    // if (_token) {
-    //     router.addRoutes([{
-    //         path: "/UserAdmin",
-    //         component: () => import( /* webpackChunkName: "base" */ '@/views/UserAdmin'),    
-    //         meta: { title: "用户管理" }
-    //     }])
-    // } else {
-    //     next({ path: '/login' })
-    // }
-    if (!_token && to.path !== '/login') {
+    const _Token = window.localStorage.getItem('_Token')
+    if (!_Token && to.path !== '/login') { // token不存在 且跳转的地址非登录页 就默认跳转登录页面
         next('/login')
-    } else {
-        window.document.title = `${to.meta.title} | 后台管理`;
+    } else { // token存在 ? 正常跳转至下一页面
+        window.document.title = `${to.meta.title} | 工程建设后台管理系统` // 设置当前页标题
         next()
     }
 })
 
+// ---------------------------------------------------------
+// 解决重复路由！
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+    if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+    return originalPush.call(this, location).catch(err => err)
+}
 // 导出路由实例
-export default router;
+export default router
 // ---------------------------------------------------------

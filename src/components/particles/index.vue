@@ -1,23 +1,23 @@
 <!-- 粒子特效组件 -->
 <template>
-    <vue-particles
-        color="#fff"
-        :particleOpacity="0.3"
-        :particlesNumber="21"
-        shapeType="circle"
-        :particleSize="4"
-        linesColor="#741299"
-        :linesWidth="1"
-        :lineLinked="true"
-        :lineOpacity="0.6"
-        :linesDistance="100"
-        :moveSpeed="2"
-        :hoverEffect="true"
-        hoverMode="grab"
-        :clickEffect="true"
-        clickMode="push"
-        class="particles"
-    ></vue-particles>
+  <vue-particles
+    color="#fff"
+    :particle-opacity="0.3"
+    :particles-number="21"
+    shape-type="circle"
+    :particle-size="4"
+    lines-color="#741299"
+    :lines-width="1"
+    :line-linked="true"
+    :line-opacity="0.6"
+    :lines-distance="100"
+    :move-speed="2"
+    :hover-effect="true"
+    hover-mode="grab"
+    :click-effect="true"
+    click-mode="push"
+    class="particles"
+  />
 </template>
 <style lang="scss" scoped>
 .particles {

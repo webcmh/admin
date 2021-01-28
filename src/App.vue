@@ -1,8 +1,8 @@
 <template>
-    <div id="app">
-        <!-- 视图入口 -->
-        <router-view></router-view>
-    </div>
+  <div id="app">
+    <!-- 视图入口 -->
+    <router-view />
+  </div>
 </template>
 <style lang="scss">
 #app {

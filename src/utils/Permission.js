@@ -26,4 +26,4 @@ const Has = Vue.directive('Has', {
 
 // ---------------------------------------------------------
 // 导出
-export { Has }
+export default { Has }

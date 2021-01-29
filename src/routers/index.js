@@ -5,7 +5,13 @@ import VueRouter from 'vue-router'
 const BaseRoutes = [ // 基础路由表
     { path: '/', redirect: '/Home' }, // 主架
     { path: '*', component: () => import(/* webpackChunkName: "base" */ '@/views/Base/404'), meta: { title: 'Not Found!' }},
-    { path: '/login', component: () => import(/* webpackChunkName: "base" */ '@/views/Login'), meta: { title: '登录' }}
+    { path: '/login', component: () => import(/* webpackChunkName: "base" */ '@/views/Login'), meta: { title: '登录' }},
+    { path: '/RoleAdmin', meta: { title: '权限管理', btnPermissions: ['Delete', 'Add', 'Edit'] }, component: () => import(/* webpackChunkName: "base" */ '@/views/RoleAdmin') },
+    { path: '/UserAdmin', meta: { title: '用户管理', btnPermissions: ['Delete', 'Search'] }, component: () => import(/* webpackChunkName: "base" */ '@/views/UserAdmin'),
+        children: [
+            { path: 'Test', meta: { title: '用户管理-Test' }, component: () => import(/* webpackChunkName: "base" */ '@/views/UserAdmin/Test.vue') }
+        ]
+    }
 ]
 
 // ---------------------------------------------------------
